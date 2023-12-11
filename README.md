@@ -1,5 +1,12 @@
 # Pembahasan Project
 
+## Diagram
+<b>Neural Network</b> <br>
+![NN Diagram](./image/nnd.png) <br><
+<b>K-Nearest Neighbors</b> <br>
+![NN Diagram](./image/knnd.png)
+Cara kerja dan konsep metode bisa dibayangkan dengan kedua gambar tersebut.
+
 ## Ekstraksi Fitur Menggunakan Linear Envelope Algoritm
 Linear Envelope adalah teknik pengolahan sinyal yang digunakan untuk menghaluskan data EMG, memperjelas fitur utama dari sinyal, dan mengurangi noise. Teknik ini melibatkan dua langkah utama: menghitung nilai absolut dari sinyal dan menerapkan filter low-pass.
 
