@@ -1,9 +1,9 @@
 # Quesyen
 
 ## Diagram
-<b>Neural Network</b>
+<b>Neural Network</b> <br>
 ![NN Diagram](../image/nnd.png)
-<b>K-Nearest Neighbors</b>
+<b>K-Nearest Neighbors</b> <br>
 ![NN Diagram](../image/knnd.png)
 Cara kerja dan konsep metode bisa dibayangkan dengan kedua gambar tersebut.
 
