@@ -111,6 +111,8 @@ try:
 
     # Matriks Konfusi untuk model terbaik
     conf_mat = confusion_matrix(y_test, y_pred_best)
+    print("\nConfusion Matriks: --------------------------- \n")
+    print(conf_mat)
 
     plt.figure(figsize=(6, 6))
     sns.heatmap(conf_mat, annot=True, fmt='g', cmap='Blues', cbar=False)
@@ -162,7 +164,8 @@ try:
 
     # Matriks Konfusi
     conf_mat_le = confusion_matrix(y_test_le, y_pred_best_le)
-
+    print("\nConfusion Matriks Menggunakan Linear Envelope: --------------------------- \n")
+    print(conf_mat_le)
     plt.figure(figsize=(6, 6))
     sns.heatmap(conf_mat_le, annot=True, fmt='g', cmap='Blues', cbar=False)
     plt.xlabel('Predicted Label')
