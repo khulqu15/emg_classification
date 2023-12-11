@@ -47,6 +47,17 @@ plt.show()
 
 ```
 
+dengan hasil plotting diatas yakni sebagai berikut:
+![Image](./image/tf.png)
+
+### Hasil
+![Ekstraksi](./image/le.png)
+1. Linear Envelope merupakan teknik pemrosesan sinyal yang digunakan untuk menghaluskan data EMG. Proses ini melibatkan dua langkah utama:
+   1. Menghitung nilai absolut dari sinyal EMG, yang menghilangkan informasi tentang polaritas sinyal namun menangkap intensitas aktivitas otot.
+   2. Menerapkan filter low-pass untuk menghaluskan sinyal absolut. Filter ini membantu dalam mengurangi noise dan fluktuasi cepat dalam data, 
+2. Filter low-pass yang digunakan dalam kasus Anda memiliki cutoff frequency 2 Hz dan order 2, yang menunjukkan penekanan pada fluktuasi frekuensi tinggi dan penonjolan sinyal pada frekuensi rendah.
+3. Perbandingan antara nilai data "Fleksi" dan "Ekstensi" sebelum dan setelah penerapan Linear Envelope menunjukkan bahwa proses ini telah menstabilkan dan menghaluskan data.
+4. Ekstraksi fitur dengan Linear Envelope telah berhasil menghaluskan data EMG, mengurangi noise, dan menonjolkan tren utama dalam sinyal. Ini bisa sangat berguna dalam meningkatkan interpretasi dan analisis sinyal EMG.
 
 ## Neural Network (NN)
 
