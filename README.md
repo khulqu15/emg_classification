@@ -18,7 +18,7 @@ Dalam proyek ini, filter Butterworth diterapkan dengan parameter cutoff=2, fs=20
 ```python
 cutoff = 2 # Nilai Cutoff = 2
 fs = 20 # Nilai Frekuensi Sampling = 20
-orde=2 # Nilai orde filter = 2
+orde = 2 # Nilai orde filter = 2
 ```
 #### Analisa
 - Frekuensi cutoff rendah pada 2 Hz dipilih untuk menghaluskan sinyal EMG. Sinyal EMG biasanya mengandung komponen frekuensi tinggi yang merupakan noise. Dengan memilih frekuensi cutoff yang rendah, filter efektif dalam menghilangkan noise frekuensi tinggi ini, sambil mempertahankan karakteristik dasar dari sinyal otot.
@@ -55,7 +55,7 @@ dengan hasil plotting diatas yakni sebagai berikut:
 1. Linear Envelope merupakan teknik pemrosesan sinyal yang digunakan untuk menghaluskan data EMG. Proses ini melibatkan dua langkah utama:
    1. Menghitung nilai absolut dari sinyal EMG, yang menghilangkan informasi tentang polaritas sinyal namun menangkap intensitas aktivitas otot.
    2. Menerapkan filter low-pass untuk menghaluskan sinyal absolut. Filter ini membantu dalam mengurangi noise dan fluktuasi cepat dalam data, 
-2. Filter low-pass yang digunakan dalam kasus Anda memiliki cutoff frequency 2 Hz dan order 2, yang menunjukkan penekanan pada fluktuasi frekuensi tinggi dan penonjolan sinyal pada frekuensi rendah.
+2. Filter low-pass yang digunakan dalam kasus memiliki cutoff frequency 2 Hz dan order 2, yang menunjukkan penekanan pada fluktuasi frekuensi tinggi dan penonjolan sinyal pada frekuensi rendah.
 3. Perbandingan antara nilai data "Fleksi" dan "Ekstensi" sebelum dan setelah penerapan Linear Envelope menunjukkan bahwa proses ini telah menstabilkan dan menghaluskan data.
 4. Ekstraksi fitur dengan Linear Envelope telah berhasil menghaluskan data EMG, mengurangi noise, dan menonjolkan tren utama dalam sinyal. Ini bisa sangat berguna dalam meningkatkan interpretasi dan analisis sinyal EMG.
 
