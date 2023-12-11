@@ -2,7 +2,7 @@
 
 ## Diagram
 <b>Neural Network</b> <br>
-![NN Diagram](../image/nnd.png)
+![NN Diagram](../image/nnd.png) <br>
 <b>K-Nearest Neighbors</b> <br>
 ![NN Diagram](../image/knnd.png)
 Cara kerja dan konsep metode bisa dibayangkan dengan kedua gambar tersebut.
