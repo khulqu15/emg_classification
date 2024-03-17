@@ -17,7 +17,16 @@ file_path = './data.xlsx'
 
 try:
     # Mengambil dan menampilkan data
-    data = pd.read_excel(file_path)
+    sheets = ['Leoni 1', 'Sheet8', 'Leoni 2 Rekam', 'R', 'N', 'E', 'I', 'A', 'C']
+    data = pd.DataFrame()
+    
+    for sheet in sheets:
+        excel = pd.read_excel(file_path, sheet_name=sheet, usecols=['Time', 'Fleksi', 'Ekstensi'])
+        data = pd.concat([data, excel])
+    
+    print("Dataset berupa: --------------------------- \n")
+    print(data.head())
+    
     selected_columns = data.columns[:3]
     data_selected = data[selected_columns]
     print("Dataset berupa: --------------------------- \n")
