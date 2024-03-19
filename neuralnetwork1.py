@@ -2,7 +2,11 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix, classification_report
+import seaborn as sns
+import matplotlib.pyplot as plt
 from tensorflow import keras
+
 
 file_path = './data.xlsx'
 xls = pd.ExcelFile(file_path)
@@ -52,3 +56,21 @@ early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, 
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 model.fit(X_train_reshaped, y_train, epochs=100, batch_size=32, verbose=1, validation_data=(X_test_reshaped, y_test), callbacks=[early_stopping])
 model.evaluate(X_test_reshaped, y_test, verbose=1)
+
+y_pred = model.predict(X_test_reshaped)
+y_pred_classes = (y_pred > 0.5).astype("int32")
+
+cm = confusion_matrix(y_test, y_pred_classes)
+
+cm_df = pd.DataFrame(cm, 
+                     index = ['Fleksi', 'Ekstensi'], 
+                     columns = ['Fleksi', 'Ekstensi'])
+
+plt.figure(figsize=(5,4))
+sns.heatmap(cm_df, annot=True, cmap='Blues', fmt='g')
+plt.title('Confusion Matrix')
+plt.ylabel('Actual Labels')
+plt.xlabel('Predicted Labels')
+plt.show()
+
+print(classification_report(y_test, y_pred_classes, target_names=['Fleksi', 'Ekstensi']))
