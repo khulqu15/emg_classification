@@ -12,21 +12,24 @@ from tensorflow import keras
 
 data_path = './data.xlsx'
 data = pd.read_excel(data_path)
-# print(data.head())
+print(data.head())
 
 sheet_names = pd.ExcelFile(data_path).sheet_names
-# print(sheet_names)
+print(sheet_names)
 
 all_data = pd.DataFrame()
 for sheet in sheet_names:
     sheet_data = pd.read_excel(data_path, sheet_name=sheet, usecols=['Time', 'Fleksi', 'Ekstensi'])
-    all_data = pd.concat([all_data, sheet_data], ignore_index=True)
+    all_data = pd.concat([all_data, sheet_data], ignore_index=False)
 print('Data (shape): ', all_data.shape)
 
 all_data['Fleksi'] = all_data['Fleksi'].str.replace(',', '.').astype(float)
 all_data['Ekstensi'] = all_data['Ekstensi'].str.replace(',', '.').astype(float)
+all_data['Fleksi'] = all_data['Fleksi'].fillna(all_data['Fleksi'].median())
+all_data['Ekstensi'] = all_data['Ekstensi'].fillna(all_data['Ekstensi'].median())
+print('Data filtered (shape): ', all_data.shape)
+
 scaler = StandardScaler()
-all_data = all_data.dropna(subset=['Fleksi', 'Ekstensi'])
 features = scaler.fit_transform(all_data[['Fleksi', 'Ekstensi']])
 kmeans = KMeans(n_clusters=2, random_state=42)
 all_data['Cluster'] = kmeans.fit_predict(features)
@@ -43,8 +46,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 print('Train data (dataset): ', X_train.shape, y_train.shape)
 print('Test data (validation): ', X_test.shape, y_test.shape)
 
-
-## KMeans
 model = keras.Sequential([
     keras.layers.Input(shape=(2,)),
     keras.layers.Dense(120, activation='relu'),
@@ -71,45 +72,45 @@ plt.show()
 
 
 ## CNN
-model_cnn = keras.Sequential([
-    keras.layers.Conv1D(filters=64, kernel_size=1, activation='relu', input_shape=(X_train.shape[1], 1)),
-    keras.layers.MaxPooling1D(pool_size=2),
-    keras.layers.Flatten(),
-    keras.layers.Dense(50, activation='relu'),
-    keras.layers.Dense(1, activation='sigmoid'),
-])
-model_cnn.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-model_cnn.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y_test), verbose=0)
-_, accuracy = model_cnn.evaluate(X_test, y_test, verbose=1)
-print(f'Accuracy: {accuracy}')
+# model_cnn = keras.Sequential([
+#     keras.layers.Conv1D(filters=64, kernel_size=1, activation='relu', input_shape=(X_train.shape[1], 1)),
+#     keras.layers.MaxPooling1D(pool_size=2),
+#     keras.layers.Flatten(),
+#     keras.layers.Dense(50, activation='relu'),
+#     keras.layers.Dense(1, activation='sigmoid'),
+# ])
+# model_cnn.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+# model_cnn.fit(X_train, y_train, epochs=50, batch_size=32, validation_data=(X_test, y_test), verbose=0)
+# _, accuracy = model_cnn.evaluate(X_test, y_test, verbose=1)
+# print(f'Accuracy: {accuracy}')
 
-predictions = model_cnn.predict(X_test)
-predictions = np.where(predictions > 0.5, 1, 0)
-cm = confusion_matrix(y_test, predictions)
+# predictions = model_cnn.predict(X_test)
+# predictions = np.where(predictions > 0.5, 1, 0)
+# cm = confusion_matrix(y_test, predictions)
 
-labels = ['Fleksi', 'Ekstensi']
-plt.figure(figsize=(6,6))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues_r', square=True, linewidths=.5, xticklabels=labels, yticklabels=labels)
-plt.ylabel('Aktual')
-plt.xlabel('Prediksi')
-plt.title('Matriks Konfusi', size=15)
-plt.show()
+# labels = ['Fleksi', 'Ekstensi']
+# plt.figure(figsize=(6,6))
+# sns.heatmap(cm, annot=True, fmt='d', cmap='Blues_r', square=True, linewidths=.5, xticklabels=labels, yticklabels=labels)
+# plt.ylabel('Aktual')
+# plt.xlabel('Prediksi')
+# plt.title('Matriks Konfusi', size=15)
+# plt.show()
 
 
 ## KNN
-knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(X_train, y_train)
-y_pred = knn.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-error_rate = 1 - accuracy
-print('Accuracy: ', accuracy)
-print('Error rate: ', error_rate)
+# knn = KNeighborsClassifier(n_neighbors=5)
+# knn.fit(X_train, y_train)
+# y_pred = knn.predict(X_test)
+# accuracy = accuracy_score(y_test, y_pred)
+# error_rate = 1 - accuracy
+# print('Accuracy: ', accuracy)
+# print('Error rate: ', error_rate)
 
-cm = confusion_matrix(y_test, y_pred)
-labels = ['Fleksi', 'Ekstensi']
-plt.figure(figsize=(6,6))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues_r', square=True, linewidths=.5, xticklabels=labels, yticklabels=labels)
-plt.ylabel('Aktual')
-plt.xlabel('Prediksi')
-plt.title('Matriks Konfusi', size=15)
-plt.show()
+# cm = confusion_matrix(y_test, y_pred)
+# labels = ['Fleksi', 'Ekstensi']
+# plt.figure(figsize=(6,6))
+# sns.heatmap(cm, annot=True, fmt='d', cmap='Blues_r', square=True, linewidths=.5, xticklabels=labels, yticklabels=labels)
+# plt.ylabel('Aktual')
+# plt.xlabel('Prediksi')
+# plt.title('Matriks Konfusi', size=15)
+# plt.show()
